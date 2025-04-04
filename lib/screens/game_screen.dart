@@ -241,88 +241,59 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   Widget _buildDifficultySelector() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      margin: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.blue[100]!, Colors.blue[50]!],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.blue[300]!),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withOpacity(0.15),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
+        color: Colors.blue[50],
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.blue[200]!),
       ),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        spacing: 8,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.blue[800],
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.trending_up,
-              color: Colors.white,
-              size: 20,
-            ),
+          Icon(
+            Icons.trending_up,
+            color: Colors.blue[800],
+            size: 18,
           ),
+          SizedBox(width: 4),
           Text(
-            'Difficulty:',
+            'Level:',
             style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
               color: Colors.blue[900],
-              letterSpacing: 0.5,
             ),
           ),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 150),
-            child: Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.blue[50],
+          SizedBox(width: 4),
+          Container(
+            width: 120, // Fixed width for dropdown
+            child: DropdownButton<String>(
+              value: selectedDifficulty,
+              isDense: true,
+              underline: SizedBox(),
+              icon: Icon(Icons.arrow_drop_down, color: Colors.blue[800], size: 20),
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.blue[900],
+                fontWeight: FontWeight.w500,
               ),
-              child: DropdownButton<String>(
-                value: selectedDifficulty,
-                isExpanded: true,
-                icon: Icon(Icons.arrow_drop_down, color: Colors.blue[800], size: 24),
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.blue[900],
-                  fontWeight: FontWeight.w500,
-                ),
-                underline: Container(
-                  height: 2,
-                  color: Colors.blue[400],
-                ),
-                items: ['Beginner', 'Intermediate', 'Advanced', 'Pro']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  if (newValue != null) {
-                    setState(() {
-                      selectedDifficulty = newValue;
-                      _restartGame();
-                    });
-                  }
-                },
-              ),
+              items: ['Beginner', 'Intermediate', 'Advanced', 'Pro']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value, overflow: TextOverflow.ellipsis),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    selectedDifficulty = newValue;
+                    _restartGame();
+                  });
+                }
+              },
             ),
           ),
         ],
@@ -453,97 +424,55 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               mainAxisAlignment: MainAxisAlignment.start, // Align to top
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: 8), // reduced padding
+                  child: Text(
+                    'Connect the Words, Master the Puzzle!',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                // Difficulty selector
+                if (!isGameComplete) _buildDifficultySelector(),
+                // Wrap completed and remaining groups in an Expanded
+                Expanded(
                   child: Column(
                     children: [
-                      Text(
-                        'WORD PUZZLE MASTER',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 2,
-                          color: Colors.blue[800],
+                      // Completed groups with fixed height
+                      ...completedGroups.map((group) => Container(
+                        height: 60, // Reduced fixed height for completed groups
+                        margin: EdgeInsets.only(bottom: 8),
+                        child: CompletedGroup(
+                          title: group.title,
+                          items: group.words,
+                          color: group.color,
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Connect the Words, Master the Puzzle!',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[600],
-                          fontStyle: FontStyle.italic,
+                      )),
+                      // Remaining game board with consistent sizing
+                      if (!isGameComplete) 
+                        Expanded(
+                          child: AnimatedBuilder(
+                            animation: _shakeController,
+                            builder: (context, child) {
+                              final sineValue = sin(24 * _shakeController.value * pi) * 8;
+                              return Transform.translate(
+                                offset: Offset(sineValue, 0),
+                                child: GameBoard(
+                                  words: getRemainingWords(),
+                                  selectedItems: selectedItems,
+                                  onItemSelected: toggleSelection,
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
-                // Show completed groups
-                ...completedGroups.map((group) => Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: CompletedGroup(
-                    title: group.title,
-                    items: group.words,
-                    color: group.color,
-                  ),
-                )),
-                // Only show congratulations after all groups are complete
-                if (isGameComplete) ...[
-                  SizedBox(height: 20),
-                  Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.green.shade100,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.green),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Congratulations!',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green.shade900,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'You have successfully completed the puzzle!',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.green.shade900,
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: _restartGame,
-                          child: Text('Play Next Puzzle'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ] else if (shouldShowGameBoard) ...[
-                  _buildDifficultySelector(),
-                  Expanded(
-                    child: AnimatedBuilder(
-                      animation: _shakeController,
-                      builder: (context, child) {
-                        final sineValue = sin(24 * _shakeController.value * pi) * 8;
-                        return Transform.translate(
-                          offset: Offset(sineValue, 0),
-                          child: GameBoard(
-                            words: getRemainingWords(),
-                            selectedItems: selectedItems,
-                            onItemSelected: toggleSelection,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                // Bottom controls
+                if (!isGameComplete) ...[
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     child: Text(

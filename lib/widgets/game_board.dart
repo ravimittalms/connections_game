@@ -13,54 +13,49 @@ class GameBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // Calculate height based on available space
-        // but keep it between 350-500 pixels
-        double height = constraints.maxHeight * 0.6;
-        height = height.clamp(350.0, 500.0);
+    // Calculate fixed dimensions for tiles
+    final double tileWidth = (MediaQuery.of(context).size.width - 64) / 4;
+    final double tileHeight = 60.0; // Fixed height for each tile
+    final double fontSize = 14.0; // Fixed font size
 
-        return SizedBox(
-          height: height,
-          child: AspectRatio(
-            aspectRatio: 1.0, // Keep grid square
-            child: GridView.count(
-              crossAxisCount: 4,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.0,
-              children: words.map((text) {
-                final isSelected = selectedItems.contains(text);
-                return InkWell(
-                  onTap: () => onItemSelected(text),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isSelected ? Colors.blue : Colors.grey[200],
-                      border: Border.all(color: Colors.grey[400]!),
-                      borderRadius: BorderRadius.circular(8),
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: GridView.count(
+        crossAxisCount: 4,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        childAspectRatio: tileWidth / tileHeight,
+        shrinkWrap: true,
+        children: words.map((word) {
+          final isSelected = selectedItems.contains(word);
+          return Material(
+            elevation: isSelected ? 8 : 2,
+            borderRadius: BorderRadius.circular(8),
+            color: isSelected ? Colors.blue[200] : Colors.white,
+            child: InkWell(
+              onTap: () => onItemSelected(word),
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                height: tileHeight,
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    word,
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? Colors.black : Colors.grey[800],
                     ),
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          text,
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
+                    textAlign: TextAlign.center,
                   ),
-                );
-              }).toList(),
+                ),
+              ),
             ),
-          ),
-        );
-      },
+          );
+        }).toList(),
+      ),
     );
   }
 }
