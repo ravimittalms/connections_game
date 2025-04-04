@@ -52,6 +52,11 @@
         {
           "groups": [
             {
+                "title": "Musical Instruments",
+                "color": "purple",
+                "words": ["Piano", "Violin", "Guitar", "Drums"]
+            },
+              {
               "title": "Colors",
               "color": "blue",
               "words": ["RED", "BLUE", "GREEN", "YELLOW"]

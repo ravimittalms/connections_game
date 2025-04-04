@@ -28,8 +28,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool isGameOver = false;
   String selectedDifficulty = 'Beginner';
 
-  bool get isGameComplete => currentGame != null && 
-      completedGroups.length >= 4;  // Changed to check for exactly 4 groups
+  bool get isGameComplete => currentGame != null && completedGroups.length == 4;  // Updated condition
 
   bool get shouldShowGameBoard => !isGameComplete;
 
@@ -450,8 +449,55 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           color: group.color,
                         ),
                       )),
-                      // Remaining game board with consistent sizing
-                      if (!isGameComplete) 
+                      if (isGameComplete) ...[
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 16),
+                            padding: EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade100,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.green),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Congratulations!',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green.shade900,
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Text(
+                                  'You have successfully completed the puzzle!',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.green.shade900,
+                                  ),
+                                ),
+                                SizedBox(height: 24),
+                                ElevatedButton.icon(
+                                  onPressed: _restartGame,
+                                  icon: Icon(Icons.refresh),
+                                  label: Text('Play Next Puzzle'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green,
+                                    foregroundColor: Colors.white,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 24,
+                                      vertical: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ] else ...[
                         Expanded(
                           child: AnimatedBuilder(
                             animation: _shakeController,
@@ -468,6 +514,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                             },
                           ),
                         ),
+                      ],
                     ],
                   ),
                 ),
