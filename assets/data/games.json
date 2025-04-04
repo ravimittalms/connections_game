@@ -241,7 +241,31 @@
               "words": ["MALE", "THIMPHU", "NUKUʻALOFA", "MAJURU"]
             }
           ]
-        }
+        },
+        {
+            "groups": [
+              {
+                "title": "Astrophysics Terms",
+                "color": "purple",
+                "words": ["SINGULARITY", "EVENT HORIZON", "RED SHIFT", "NEUTRON STAR"]
+              },
+              {
+                "title": "Lost Civilizations",
+                "color": "yellow",
+                "words": ["ATLANTIS", "LEMURIA", "MU", "HYPERBOREA"]
+              },
+              {
+                "title": "Mathematical Paradoxes",
+                "color": "green",
+                "words": ["BANACH-TARSKI", "ZENO'S", "RUSSELL'S", "LIAR"]
+              },
+              {
+                "title": "Theoretical Constructs",
+                "color": "blue",
+                "words": ["MULTIVERSE", "TIME DILATION", "WORMHOLE", "SIMULATION"]
+              }
+            ]
+          }
       ]
     }
   }
