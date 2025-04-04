@@ -13,13 +13,14 @@ class GameScreen extends StatefulWidget {
   State<GameScreen> createState() => _GameScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateMixin {
+class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   List<String> selectedItems = [];
   Game? currentGame;
   List<Group> completedGroups = [];
   final PuzzleService _puzzleService = PuzzleService();
   int mistakesRemaining = 4;
   late final AnimationController _shakeController;
+  late final AnimationController _rotationController;
   String? errorMessage;
   final Random _random = Random();
   bool isGameOver = false;
@@ -37,11 +38,16 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
       duration: Duration(milliseconds: 500),
       vsync: this,
     );
+    _rotationController = AnimationController(
+      duration: Duration(seconds: 2),
+      vsync: this,
+    )..repeat();
   }
 
   @override
   void dispose() {
     _shakeController.dispose();
+    _rotationController.dispose();
     super.dispose();
   }
 
@@ -105,12 +111,28 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
 
   void handleSubmit() {
     if (selectedItems.length < 4) {
+      // Calculate screen width
+      final screenWidth = MediaQuery.of(context).size.width;
+      // Use the smaller of 600 or screen width - 32 (for padding)
+      final snackBarWidth = screenWidth > 632 ? 600.0 : screenWidth - 32;
+      
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Please select 4 items before submitting'),
+          content: Container(
+            alignment: Alignment.center,
+            height: 32,
+            child: Text(
+              'Please select 4 items before submitting',
+              textAlign: TextAlign.center,
+            ),
+          ),
           duration: Duration(seconds: 2),
           behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.all(16),
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 100,
+            left: (screenWidth - snackBarWidth) / 2,
+            right: (screenWidth - snackBarWidth) / 2,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -178,6 +200,40 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
     });
   }
 
+  Widget _buildGameOverImage() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        AnimatedBuilder(
+          animation: _rotationController,
+          builder: (context, child) {
+            return Transform.rotate(
+              angle: _rotationController.value * 2 * pi,
+              child: Container(
+                width: 120,
+                height: 120,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: SweepGradient(
+                    colors: [
+                      Colors.blue.shade200,
+                      Colors.blue.shade800,
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+        Icon(
+          Icons.psychology,
+          size: 80,
+          color: Colors.white,
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (errorMessage != null) {
@@ -207,24 +263,77 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
       return Scaffold(
         appBar: AppHeader(),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Game Over!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 20),
-              Text('You ran out of attempts'),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: _restartGame,
-                child: Text('Try Again'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          child: Container(
+            padding: EdgeInsets.all(24),
+            constraints: BoxConstraints(maxWidth: 600),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildGameOverImage(),
+                SizedBox(height: 24),
+                Text(
+                  'Game Over!',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red[700],
+                    letterSpacing: 1.5,
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 16),
+                Text(
+                  'Keep going! Every attempt makes you stronger.',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[700],
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 40),
+                Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(maxWidth: 300),
+                  child: ElevatedButton(
+                    onPressed: _restartGame,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[700],
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 8,
+                      shadowColor: Colors.blue.withOpacity(0.5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.refresh, size: 24),
+                        SizedBox(width: 12),
+                        Text(
+                          'Try Again',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Score: ${completedGroups.length} groups found',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -233,93 +342,132 @@ class _GameScreenState extends State<GameScreen> with SingleTickerProviderStateM
     return Scaffold(
       appBar: AppHeader(),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Text(
-                'Create four groups of four!',
-                style: TextStyle(fontSize: 18),
-              ),
-              SizedBox(height: 10),
-              // Show completed groups
-              ...completedGroups.map((group) => Padding(
-                padding: EdgeInsets.only(bottom: 10),
-                child: CompletedGroup(
-                  title: group.title,
-                  items: group.words,
-                  color: group.color,
-                ),
-              )),
-              // Only show congratulations after all groups are complete
-              if (isGameComplete) ...[
-                SizedBox(height: 20),
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: 600, // Constrain maximum width
+              maxHeight: MediaQuery.of(context).size.height * 0.9, // 90% of screen height
+            ),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start, // Align to top
+              children: [
                 Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade100,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.green),
-                  ),
+                  padding: EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     children: [
                       Text(
-                        'Congratulations!',
+                        'WORD PUZZLE MASTER',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green.shade900,
+                          letterSpacing: 2,
+                          color: Colors.blue[800],
                         ),
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'You have successfully completed the puzzle!',
+                        'Connect the Words, Master the Puzzle!',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.green.shade900,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _restartGame,
-                        child: Text('Play Next Puzzle'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
+                          color: Colors.grey[600],
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
                     ],
                   ),
                 ),
-              ] else if (shouldShowGameBoard) ...[
-                Expanded(
-                  child: AnimatedBuilder(
-                    animation: _shakeController,
-                    builder: (context, child) {
-                      final sineValue = sin(24 * _shakeController.value * pi) * 8;
-                      return Transform.translate(
-                        offset: Offset(sineValue, 0),
-                        child: GameBoard(
-                          words: getRemainingWords(),
-                          selectedItems: selectedItems,
-                          onItemSelected: toggleSelection,
-                        ),
-                      );
-                    },
+                // Show completed groups
+                ...completedGroups.map((group) => Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: CompletedGroup(
+                    title: group.title,
+                    items: group.words,
+                    color: group.color,
                   ),
-                ),
-                Divider(height: 32),
-                MistakesIndicator(
-                  mistakesRemaining: mistakesRemaining,
-                ),
-                SizedBox(height: 16),
-                ActionButtons(
-                  onShuffle: handleShuffle,
-                  onDeselect: clearSelection,
-                  onSubmit: handleSubmit,
-                ),
+                )),
+                // Only show congratulations after all groups are complete
+                if (isGameComplete) ...[
+                  SizedBox(height: 20),
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.green.shade100,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.green),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Congratulations!',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green.shade900,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'You have successfully completed the puzzle!',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.green.shade900,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: _restartGame,
+                          child: Text('Play Next Puzzle'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ] else if (shouldShowGameBoard) ...[
+                  Expanded(
+                    child: AnimatedBuilder(
+                      animation: _shakeController,
+                      builder: (context, child) {
+                        final sineValue = sin(24 * _shakeController.value * pi) * 8;
+                        return Transform.translate(
+                          offset: Offset(sineValue, 0),
+                          child: GameBoard(
+                            words: getRemainingWords(),
+                            selectedItems: selectedItems,
+                            onItemSelected: toggleSelection,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      'Select four words that share a category, then click Submit. You have 4 lifelines.',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey[700],
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Divider(height: 32),
+                  MistakesIndicator(
+                    mistakesRemaining: mistakesRemaining,
+                  ),
+                  SizedBox(height: 16),
+                  ActionButtons(
+                    onShuffle: handleShuffle,
+                    onDeselect: clearSelection,
+                    onSubmit: handleSubmit,
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),
