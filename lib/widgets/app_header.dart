@@ -1,27 +1,46 @@
 import 'package:flutter/material.dart';
+import '../screens/settings_screen.dart';
 
 class AppHeader extends StatelessWidget implements PreferredSizeWidget {
+  final VoidCallback onLanguageChanged;
+
+  const AppHeader({
+    Key? key,
+    required this.onLanguageChanged,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.menu),
-        onPressed: () {},
+      backgroundColor: Colors.white,
+      elevation: 1,
+      title: Text(
+        'Word Puzzle Master',
+        style: TextStyle(
+          color: Colors.blue[800],
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      title: Text('Games'),
       actions: [
         IconButton(
-          icon: Icon(Icons.lightbulb_outline),
-          onPressed: () {},
+          icon: Icon(
+            Icons.settings,
+            color: Colors.blue[800],
+            size: 26,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SettingsScreen(
+                  onLanguageChanged: onLanguageChanged,
+                ),
+              ),
+            );
+          },
+          tooltip: 'Settings',
         ),
-        IconButton(
-          icon: Icon(Icons.bar_chart),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(Icons.help_outline),
-          onPressed: () {},
-        ),
+        SizedBox(width: 8),
       ],
     );
   }

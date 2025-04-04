@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:provider/provider.dart';
+import 'models/settings_model.dart';
 import 'screens/game_screen.dart';
 
 void main() {
@@ -8,7 +10,12 @@ void main() {
   if (kIsWeb) {
     // We'll handle web-specific setup if needed in the future
   }
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => SettingsModel(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

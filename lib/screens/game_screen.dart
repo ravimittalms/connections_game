@@ -7,6 +7,8 @@ import '../widgets/action_buttons.dart';
 import '../widgets/completed_group.dart';
 import '../models/puzzle_model.dart';
 import '../services/puzzle_service.dart';
+import 'package:provider/provider.dart';
+import '../models/settings_model.dart';
 
 class GameScreen extends StatefulWidget {
   @override
@@ -54,8 +56,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   Future<void> _loadGame() async {
     try {
-      print('Starting game load for difficulty: $selectedDifficulty');
-      final game = await _puzzleService.loadGame(difficulty: selectedDifficulty);
+      final settings = Provider.of<SettingsModel>(context, listen: false);
+      final game = await _puzzleService.loadGame(
+        difficulty: selectedDifficulty,
+        language: settings.selectedLanguage,
+      );
       print('Game loaded successfully: ${game.groups.length} groups');
       setState(() {
         currentGame = game;
@@ -352,7 +357,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
     if (isGameOver) {
       return Scaffold(
-        appBar: AppHeader(),
+        appBar: AppHeader(
+          onLanguageChanged: _restartGame, // Add this line
+        ),
         body: Center(
           child: Container(
             padding: EdgeInsets.all(24),
@@ -431,7 +438,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     }
 
     return Scaffold(
-      appBar: AppHeader(),
+      appBar: AppHeader(
+        onLanguageChanged: _restartGame,
+      ),
       body: SafeArea(
         child: Center(
           child: Container(
