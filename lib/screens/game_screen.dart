@@ -24,7 +24,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   String? errorMessage;
   final Random _random = Random();
   bool isGameOver = false;
-  
+  String selectedDifficulty = 'Beginner';
+
   bool get isGameComplete => currentGame != null && 
       completedGroups.length >= 4;  // Changed to check for exactly 4 groups
 
@@ -53,8 +54,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   Future<void> _loadGame() async {
     try {
-      print('Starting game load');
-      final game = await _puzzleService.loadGame();
+      print('Starting game load for difficulty: $selectedDifficulty');
+      final game = await _puzzleService.loadGame(difficulty: selectedDifficulty);
       print('Game loaded successfully: ${game.groups.length} groups');
       setState(() {
         currentGame = game;
@@ -105,8 +106,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       selectedItems.clear();
       completedGroups.clear();
     });
-    // Load a new random game
-    _loadGame();
+    _loadGame(); // This will now use the current selectedDifficulty
   }
 
   void handleSubmit() {
@@ -231,6 +231,97 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           color: Colors.white,
         ),
       ],
+    );
+  }
+
+  Widget _buildDifficultySelector() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue[100]!, Colors.blue[50]!],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.blue[300]!),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.15),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 8,
+        children: [
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.blue[800],
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.trending_up,
+              color: Colors.white,
+              size: 20,
+            ),
+          ),
+          Text(
+            'Difficulty:',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: Colors.blue[900],
+              letterSpacing: 0.5,
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 150),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.blue[50],
+              ),
+              child: DropdownButton<String>(
+                value: selectedDifficulty,
+                isExpanded: true,
+                icon: Icon(Icons.arrow_drop_down, color: Colors.blue[800], size: 24),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.blue[900],
+                  fontWeight: FontWeight.w500,
+                ),
+                underline: Container(
+                  height: 2,
+                  color: Colors.blue[400],
+                ),
+                items: ['Beginner', 'Intermediate', 'Advanced', 'Pro']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      selectedDifficulty = newValue;
+                      _restartGame();
+                    });
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -427,6 +518,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ] else if (shouldShowGameBoard) ...[
+                  _buildDifficultySelector(),
                   Expanded(
                     child: AnimatedBuilder(
                       animation: _shakeController,

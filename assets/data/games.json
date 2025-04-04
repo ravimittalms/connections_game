@@ -1,367 +1,248 @@
 {
-    "games": [
+    "difficulty_levels": {
+      "Beginner": [
         {
-            "groups": [
-                {
-                    "title": "Names that sound like two letters",
-                    "color": "purple",
-                    "words": ["Cece", "Edie", "Emmy", "Katie"]
-                },
-                {
-                    "title": "Sopranos",
-                    "color": "yellow",
-                    "words": ["Carmela", "Junior", "Meadow", "Tony"]
-                },
-                {
-                    "title": "Familial Nicknames",
-                    "color": "green",
-                    "words": ["Cuz", "Grammy", "Mummy", "Pop"]
-                },
-                {
-                    "title": "Sesame Street Characters",
-                    "color": "blue",
-                    "words": ["Cookie", "Count", "Oscar", "Snuffy"]
-                }
-            ]
+          "groups": [
+            {
+              "title": "Fruits",
+              "color": "purple",
+              "words": ["Apple", "Banana", "Orange", "Grape"]
+            },
+            {
+              "title": "Vegetables",
+              "color": "yellow",
+              "words": ["Carrot", "Potato", "Onion", "Tomato"]
+            },
+            {
+              "title": "Dairy Products",
+              "color": "green",
+              "words": ["Milk", "Cheese", "Yogurt", "Butter"]
+            },
+            {
+              "title": "Beverages",
+              "color": "blue",
+              "words": ["Coffee", "Tea", "Soda", "Juice"]
+            }
+          ]
         },
         {
-            "groups": [
-                {
-                    "title": "Types of Pizza",
-                    "color": "purple",
-                    "words": ["Margherita", "Pepperoni", "Hawaiian", "Supreme"]
-                },
-                {
-                    "title": "Social Media Apps",
-                    "color": "yellow",
-                    "words": ["Instagram", "Twitter", "Facebook", "LinkedIn"]
-                },
-                {
-                    "title": "Web Browsers",
-                    "color": "green",
-                    "words": ["Chrome", "Safari", "Firefox", "Edge"]
-                },
-                {
-                    "title": "Programming Languages",
-                    "color": "blue",
-                    "words": ["Python", "Java", "JavaScript", "Swift"]
-                }
-            ]
+          "groups": [
+            {
+              "title": "Weather Terms",
+              "color": "purple",
+              "words": ["Sunny", "Rainy", "Cloudy", "Stormy"]
+            },
+            {
+              "title": "Seasons",
+              "color": "yellow",
+              "words": ["Spring", "Summer", "Fall", "Winter"]
+            },
+            {
+              "title": "Time Periods",
+              "color": "green",
+              "words": ["Dawn", "Noon", "Dusk", "Night"]
+            },
+            {
+              "title": "Calendar Terms",
+              "color": "blue",
+              "words": ["Month", "Week", "Year", "Day"]
+            }
+          ]
         },
         {
-            "groups": [
-                {
-                    "title": "Marvel Superheroes",
-                    "color": "purple",
-                    "words": ["Iron Man", "Thor", "Hulk", "Spider-Man"]
-                },
-                {
-                    "title": "DC Superheroes",
-                    "color": "yellow",
-                    "words": ["Batman", "Superman", "Flash", "Wonder Woman"]
-                },
-                {
-                    "title": "Star Wars Characters",
-                    "color": "green",
-                    "words": ["Luke", "Leia", "Han", "Vader"]
-                },
-                {
-                    "title": "Harry Potter Characters",
-                    "color": "blue",
-                    "words": ["Harry", "Ron", "Hermione", "Dumbledore"]
-                }
-            ]
+          "groups": [
+            {
+              "title": "Colors",
+              "color": "blue",
+              "words": ["RED", "BLUE", "GREEN", "YELLOW"]
+            },
+            {
+              "title": "Art Tools",
+              "color": "green",
+              "words": ["BRUSH", "CANVAS", "EASEL", "PALETTE"]
+            },
+            {
+              "title": "Colors",
+              "color": "blue",
+              "words": ["INDIGO", "VIOLET", "CRIMSON", "AZURE"]
+            }
+          ]
         },
         {
-            "groups": [
-                {
-                    "title": "Musical Instruments",
-                    "color": "purple",
-                    "words": ["Piano", "Violin", "Guitar", "Drums"]
-                },
-                {
-                    "title": "Sports Equipment",
-                    "color": "yellow",
-                    "words": ["Racket", "Bat", "Ball", "Net"]
-                },
-                {
-                    "title": "Board Games",
-                    "color": "green",
-                    "words": ["Chess", "Monopoly", "Scrabble", "Risk"]
-                },
-                {
-                    "title": "Card Games",
-                    "color": "blue",
-                    "words": ["Poker", "Bridge", "Rummy", "Uno"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Weather Terms",
-                    "color": "purple",
-                    "words": ["Sunny", "Rainy", "Cloudy", "Stormy"]
-                },
-                {
-                    "title": "Seasons",
-                    "color": "yellow",
-                    "words": ["Spring", "Summer", "Fall", "Winter"]
-                },
-                {
-                    "title": "Time Periods",
-                    "color": "green",
-                    "words": ["Dawn", "Noon", "Dusk", "Night"]
-                },
-                {
-                    "title": "Calendar Terms",
-                    "color": "blue",
-                    "words": ["Month", "Week", "Year", "Day"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Fruits",
-                    "color": "purple",
-                    "words": ["Apple", "Banana", "Orange", "Grape"]
-                },
-                {
-                    "title": "Vegetables",
-                    "color": "yellow",
-                    "words": ["Carrot", "Potato", "Onion", "Tomato"]
-                },
-                {
-                    "title": "Dairy Products",
-                    "color": "green",
-                    "words": ["Milk", "Cheese", "Yogurt", "Butter"]
-                },
-                {
-                    "title": "Beverages",
-                    "color": "blue",
-                    "words": ["Coffee", "Tea", "Soda", "Juice"]
-                }
-            ]
-        },
-        {
-            "id": "1",
-            "groups": [
-                {
-                    "title": "BIRDS",
-                    "color": "yellow",
-                    "words": ["CARDINAL", "ROBIN", "SPARROW", "BLUEJAY"]
-                },
-                {
-                    "title": "CARD GAMES",
-                    "color": "green",
-                    "words": ["POKER", "BRIDGE", "HEARTS", "RUMMY"]
-                },
-                {
-                    "title": "MUSICAL NOTES",
-                    "color": "blue",
-                    "words": ["WHOLE", "HALF", "QUARTER", "EIGHTH"]
-                },
-                {
-                    "title": "PIZZA TOPPINGS",
-                    "color": "purple",
-                    "words": ["PEPPERONI", "MUSHROOMS", "OLIVES", "SAUSAGE"]
-                }
-            ]
-        },
-        {
-            "id": "2",
-            "groups": [
-                {
-                    "title": "COMPUTER PARTS",
-                    "color": "yellow",
-                    "words": ["MONITOR", "KEYBOARD", "MOUSE", "SPEAKER"]
-                },
-                {
-                    "title": "WEATHER",
-                    "color": "green",
-                    "words": ["SUNNY", "CLOUDY", "RAINY", "STORMY"]
-                },
-                {
-                    "title": "FRUITS",
-                    "color": "blue",
-                    "words": ["APPLE", "BANANA", "ORANGE", "GRAPE"]
-                },
-                {
-                    "title": "SPORTS",
-                    "color": "purple",
-                    "words": ["SOCCER", "TENNIS", "GOLF", "HOCKEY"]
-                }
-            ]
-        },
-        {
-            "id": "3",
-            "groups": [
-                {
-                    "title": "PLANETS",
-                    "color": "yellow",
-                    "words": ["MARS", "VENUS", "MERCURY", "SATURN"]
-                },
-                {
-                    "title": "ELEMENTS",
-                    "color": "green",
-                    "words": ["GOLD", "SILVER", "COPPER", "IRON"]
-                },
-                {
-                    "title": "COLORS",
-                    "color": "blue",
-                    "words": ["RED", "BLUE", "GREEN", "YELLOW"]
-                },
-                {
-                    "title": "VEHICLES",
-                    "color": "purple",
-                    "words": ["CAR", "BIKE", "TRAIN", "PLANE"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Ocean Animals",
-                    "color": "purple",
-                    "words": ["DOLPHIN", "SHARK", "WHALE", "OCTOPUS"]
-                },
-                {
-                    "title": "Mountain Ranges",
-                    "color": "yellow",
-                    "words": ["ALPS", "ANDES", "ROCKIES", "HIMALAYAS"]
-                },
-                {
-                    "title": "Famous Scientists",
-                    "color": "green",
-                    "words": ["EINSTEIN", "NEWTON", "DARWIN", "TESLA"]
-                },
-                {
-                    "title": "Greek Gods",
-                    "color": "blue",
-                    "words": ["ZEUS", "APOLLO", "ATHENA", "POSEIDON"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Fast Food Chains",
-                    "color": "purple",
-                    "words": ["MCDONALDS", "WENDYS", "SUBWAY", "KFC"]
-                },
-                {
-                    "title": "Ice Cream Flavors",
-                    "color": "yellow",
-                    "words": ["VANILLA", "CHOCOLATE", "STRAWBERRY", "MINT"]
-                },
-                {
-                    "title": "Candy Brands",
-                    "color": "green",
-                    "words": ["SNICKERS", "TWIX", "KITKAT", "MARS"]
-                },
-                {
-                    "title": "Soft Drinks",
-                    "color": "blue",
-                    "words": ["COKE", "PEPSI", "SPRITE", "FANTA"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Ancient Civilizations",
-                    "color": "purple",
-                    "words": ["EGYPT", "ROME", "MAYA", "INCA"]
-                },
-                {
-                    "title": "European Capitals",
-                    "color": "yellow",
-                    "words": ["PARIS", "LONDON", "BERLIN", "MADRID"]
-                },
-                {
-                    "title": "Asian Countries",
-                    "color": "green",
-                    "words": ["JAPAN", "CHINA", "INDIA", "KOREA"]
-                },
-                {
-                    "title": "American States",
-                    "color": "blue",
-                    "words": ["TEXAS", "FLORIDA", "ALASKA", "HAWAII"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Dance Styles",
-                    "color": "purple",
-                    "words": ["BALLET", "SALSA", "TANGO", "WALTZ"]
-                },
-                {
-                    "title": "Music Genres",
-                    "color": "yellow",
-                    "words": ["JAZZ", "ROCK", "BLUES", "DISCO"]
-                },
-                {
-                    "title": "Musical Terms",
-                    "color": "green",
-                    "words": ["TEMPO", "RHYTHM", "SCALE", "CHORD"]
-                },
-                {
-                    "title": "Instruments",
-                    "color": "blue",
-                    "words": ["FLUTE", "HARP", "CELLO", "TRUMPET"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Dinosaurs",
-                    "color": "purple",
-                    "words": ["TREX", "RAPTOR", "STEGO", "TRICERA"]
-                },
-                {
-                    "title": "Extinct Animals",
-                    "color": "yellow",
-                    "words": ["DODO", "MAMMOTH", "SABER", "MEGAN"]
-                },
-                {
-                    "title": "Big Cats",
-                    "color": "green",
-                    "words": ["LION", "TIGER", "JAGUAR", "LEOPARD"]
-                },
-                {
-                    "title": "Sea Creatures",
-                    "color": "blue",
-                    "words": ["SEAL", "OTTER", "WALRUS", "PENGUIN"]
-                }
-            ]
-        },
-        {
-            "groups": [
-                {
-                    "title": "Famous Artists",
-                    "color": "purple",
-                    "words": ["PICASSO", "MONET", "DALI", "WARHOL"]
-                },
-                {
-                    "title": "Art Styles",
-                    "color": "yellow",
-                    "words": ["CUBISM", "REALISM", "MODERN", "ABSTRACT"]
-                },
-                {
-                    "title": "Art Tools",
-                    "color": "green",
-                    "words": ["BRUSH", "CANVAS", "EASEL", "PALETTE"]
-                },
-                {
-                    "title": "Colors",
-                    "color": "blue",
-                    "words": ["INDIGO", "VIOLET", "CRIMSON", "AZURE"]
-                }
-            ]
+          "groups": [
+            {
+              "title": "Musical Instruments",
+              "color": "purple",
+              "words": ["Piano", "Violin", "Guitar", "Drums"]
+            },
+            {
+              "title": "Sports Equipment",
+              "color": "yellow",
+              "words": ["Racket", "Bat", "Ball", "Net"]
+            },
+            {
+              "title": "Board Games",
+              "color": "green",
+              "words": ["Chess", "Monopoly", "Scrabble", "Risk"]
+            },
+            {
+              "title": "Card Games",
+              "color": "blue",
+              "words": ["Poker", "Bridge", "Rummy", "Uno"]
+            }
+          ]
         }
-    ]
-}
+      ],
+      "Intermediate": [
+        {
+          "groups": [
+            {
+              "title": "Occupations",
+              "color": "purple",
+              "words": ["Doctor", "Lawyer", "Teacher", "Engineer"]
+            },
+            {
+              "title": "Modes of Transport",
+              "color": "yellow",
+              "words": ["Bus", "Train", "Bicycle", "Airplane"]
+            },
+            {
+              "title": "Famous Landmarks",
+              "color": "green",
+              "words": ["Eiffel Tower", "Statue of Liberty", "Colosseum", "Taj Mahal"]
+            },
+            {
+              "title": "Languages",
+              "color": "blue",
+              "words": ["English", "Spanish", "Mandarin", "Arabic"]
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "title": "Web Technologies",
+              "color": "purple",
+              "words": ["HTML", "CSS", "JavaScript", "React"]
+            },
+            {
+              "title": "Animals by Habitat",
+              "color": "yellow",
+              "words": ["Camel", "Penguin", "Tiger", "Whale"]
+            },
+            {
+              "title": "Famous Authors",
+              "color": "green",
+              "words": ["Shakespeare", "Austen", "Orwell", "Hemingway"]
+            },
+            {
+              "title": "Inventions",
+              "color": "blue",
+              "words": ["Telephone", "Lightbulb", "Airplane", "Internet"]
+            }
+          ]
+        }
+      ],
+      "Advanced": [
+        {
+          "groups": [
+            {
+              "title": "Philosophers",
+              "color": "purple",
+              "words": ["Plato", "Socrates", "Nietzsche", "Kant"]
+            },
+            {
+              "title": "Chemistry Elements",
+              "color": "yellow",
+              "words": ["Hydrogen", "Oxygen", "Carbon", "Uranium"]
+            },
+            {
+              "title": "Classic Novels",
+              "color": "green",
+              "words": ["1984", "Moby Dick", "Dracula", "Frankenstein"]
+            },
+            {
+              "title": "Programming Paradigms",
+              "color": "blue",
+              "words": ["Functional", "Procedural", "OOP", "Declarative"]
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "title": "Economic Terms",
+              "color": "purple",
+              "words": ["Inflation", "Deflation", "Recession", "GDP"]
+            },
+            {
+              "title": "Political Theories",
+              "color": "yellow",
+              "words": ["Capitalism", "Socialism", "Communism", "Libertarianism"]
+            },
+            {
+              "title": "Renaissance Artists",
+              "color": "green",
+              "words": ["Michelangelo", "Leonardo", "Raphael", "Donatello"]
+            },
+            {
+              "title": "Constellations",
+              "color": "blue",
+              "words": ["Orion", "Ursa Major", "Cassiopeia", "Andromeda"]
+            }
+          ]
+        }
+      ],
+      "Pro": [
+        {
+          "groups": [
+            {
+              "title": "Quantum Physics Terms",
+              "color": "purple",
+              "words": ["ENTANGLEMENT", "SUPERPOSITION", "DECOHERENCE", "QUANTIZATION"]
+            },
+            {
+              "title": "Advanced Math Concepts",
+              "color": "yellow",
+              "words": ["TOPOLOGY", "TENSOR", "MANIFOLD", "DIFFERENTIAL"]
+            },
+            {
+              "title": "Obscure Mythologies",
+              "color": "green",
+              "words": ["ANANSI", "QUETZALCOATL", "AMATERASU", "BASTET"]
+            },
+            {
+              "title": "Ancient Languages",
+              "color": "blue",
+              "words": ["LATIN", "SANSKRIT", "CUNEIFORM", "HIEROGLYPHS"]
+            }
+          ]
+        },
+        {
+          "groups": [
+            {
+              "title": "Rare Diseases",
+              "color": "purple",
+              "words": ["PROGERIA", "KURU", "FOP", "ALS"]
+            },
+            {
+              "title": "Cryptography Terms",
+              "color": "yellow",
+              "words": ["ENCRYPTION", "HASHING", "ASYMMETRIC", "STEGANOGRAPHY"]
+            },
+            {
+              "title": "Philosophical Theories",
+              "color": "green",
+              "words": ["UTILITARIANISM", "EXISTENTIALISM", "DEONTOLOGY", "NIHILISM"]
+            },
+            {
+              "title": "Rare World Capitals",
+              "color": "blue",
+              "words": ["MALE", "THIMPHU", "NUKUʻALOFA", "MAJURU"]
+            }
+          ]
+        }
+      ]
+    }
+  }
+  

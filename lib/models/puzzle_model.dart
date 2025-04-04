@@ -1,3 +1,27 @@
+import 'dart:math';
+
+class Game {
+  final List<Group> groups;
+  late final List<String> allWords;
+
+  Game({
+    required this.groups,
+  }) {
+    allWords = [];
+    for (var group in groups) {
+      allWords.addAll(group.words);
+    }
+    allWords.shuffle(Random());
+  }
+
+  factory Game.fromJson(Map<String, dynamic> json) {
+    final groupsList = (json['groups'] as List)
+        .map((groupJson) => Group.fromJson(groupJson))
+        .toList();
+    return Game(groups: groupsList);
+  }
+}
+
 class Group {
   final String title;
   final String color;
@@ -11,44 +35,9 @@ class Group {
 
   factory Group.fromJson(Map<String, dynamic> json) {
     return Group(
-      title: json['title'],
-      color: json['color'],
-      words: List<String>.from(json['words']),
+      title: json['title'] as String,
+      color: json['color'] as String,
+      words: (json['words'] as List).cast<String>(),
     );
-  }
-}
-
-class Game {
-  final List<Group> groups;
-  List<String> allWords;  // Changed to non-final to allow shuffling
-
-  Game({required this.groups}) : allWords = _getAllWords(groups) {
-    // Shuffle words when game is created
-    allWords.shuffle();
-  }
-
-  static List<String> _getAllWords(List<Group> groups) {
-    List<String> words = [];
-    for (var group in groups) {
-      words.addAll(group.words);
-    }
-    return words;
-  }
-
-  factory Game.fromJson(Map<String, dynamic> json) {
-    if (!json.containsKey('groups')) {
-      throw Exception('Invalid game data: missing groups');
-    }
-
-    final List<dynamic> groupsList = json['groups'] as List;
-    if (groupsList.isEmpty) {
-      throw Exception('Game has no groups');
-    }
-
-    final groups = groupsList
-        .map((group) => Group.fromJson(Map<String, dynamic>.from(group)))
-        .toList();
-
-    return Game(groups: groups);
   }
 }
