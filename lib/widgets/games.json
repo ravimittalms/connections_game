@@ -1,0 +1,30 @@
+{
+  "games": [
+    {
+      "game1": {
+        "groups": [
+          {
+            "title": "Names that sound like two letters",
+            "color": "purple",
+            "words": ["Cece", "Edie", "Emmy", "Katie"]
+          },
+          {
+            "title": "Sopranos",
+            "color": "yellow",
+            "words": ["Carmela", "Junior", "Meadow", "Tony"]
+          },
+          {
+            "title": "Familial Nicknames",
+            "color": "green",
+            "words": ["Cuz", "Grammy", "Mummy", "Pop"]
+          },
+          {
+            "title": "\"Sesame Street\" Characters",
+            "color": "blue",
+            "words": ["Cookie", "Count", "Oscar", "Snuffy"]
+          }
+        ]
+      }
+    }
+  ]
+}

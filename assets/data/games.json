@@ -1,0 +1,148 @@
+{
+    "games": [
+        {
+            "groups": [
+                {
+                    "title": "Names that sound like two letters",
+                    "color": "purple",
+                    "words": ["Cece", "Edie", "Emmy", "Katie"]
+                },
+                {
+                    "title": "Sopranos",
+                    "color": "yellow",
+                    "words": ["Carmela", "Junior", "Meadow", "Tony"]
+                },
+                {
+                    "title": "Familial Nicknames",
+                    "color": "green",
+                    "words": ["Cuz", "Grammy", "Mummy", "Pop"]
+                },
+                {
+                    "title": "Sesame Street Characters",
+                    "color": "blue",
+                    "words": ["Cookie", "Count", "Oscar", "Snuffy"]
+                }
+            ]
+        },
+        {
+            "groups": [
+                {
+                    "title": "Types of Pizza",
+                    "color": "purple",
+                    "words": ["Margherita", "Pepperoni", "Hawaiian", "Supreme"]
+                },
+                {
+                    "title": "Social Media Apps",
+                    "color": "yellow",
+                    "words": ["Instagram", "Twitter", "Facebook", "LinkedIn"]
+                },
+                {
+                    "title": "Web Browsers",
+                    "color": "green",
+                    "words": ["Chrome", "Safari", "Firefox", "Edge"]
+                },
+                {
+                    "title": "Programming Languages",
+                    "color": "blue",
+                    "words": ["Python", "Java", "JavaScript", "Swift"]
+                }
+            ]
+        },
+        {
+            "groups": [
+                {
+                    "title": "Marvel Superheroes",
+                    "color": "purple",
+                    "words": ["Iron Man", "Thor", "Hulk", "Spider-Man"]
+                },
+                {
+                    "title": "DC Superheroes",
+                    "color": "yellow",
+                    "words": ["Batman", "Superman", "Flash", "Wonder Woman"]
+                },
+                {
+                    "title": "Star Wars Characters",
+                    "color": "green",
+                    "words": ["Luke", "Leia", "Han", "Vader"]
+                },
+                {
+                    "title": "Harry Potter Characters",
+                    "color": "blue",
+                    "words": ["Harry", "Ron", "Hermione", "Dumbledore"]
+                }
+            ]
+        },
+        {
+            "groups": [
+                {
+                    "title": "Musical Instruments",
+                    "color": "purple",
+                    "words": ["Piano", "Violin", "Guitar", "Drums"]
+                },
+                {
+                    "title": "Sports Equipment",
+                    "color": "yellow",
+                    "words": ["Racket", "Bat", "Ball", "Net"]
+                },
+                {
+                    "title": "Board Games",
+                    "color": "green",
+                    "words": ["Chess", "Monopoly", "Scrabble", "Risk"]
+                },
+                {
+                    "title": "Card Games",
+                    "color": "blue",
+                    "words": ["Poker", "Bridge", "Rummy", "Uno"]
+                }
+            ]
+        },
+        {
+            "groups": [
+                {
+                    "title": "Weather Terms",
+                    "color": "purple",
+                    "words": ["Sunny", "Rainy", "Cloudy", "Stormy"]
+                },
+                {
+                    "title": "Seasons",
+                    "color": "yellow",
+                    "words": ["Spring", "Summer", "Fall", "Winter"]
+                },
+                {
+                    "title": "Time Periods",
+                    "color": "green",
+                    "words": ["Dawn", "Noon", "Dusk", "Night"]
+                },
+                {
+                    "title": "Calendar Terms",
+                    "color": "blue",
+                    "words": ["Month", "Week", "Year", "Day"]
+                }
+            ]
+        },
+        {
+            "groups": [
+                {
+                    "title": "Fruits",
+                    "color": "purple",
+                    "words": ["Apple", "Banana", "Orange", "Grape"]
+                },
+                {
+                    "title": "Vegetables",
+                    "color": "yellow",
+                    "words": ["Carrot", "Potato", "Onion", "Tomato"]
+                },
+                {
+                    "title": "Dairy Products",
+                    "color": "green",
+                    "words": ["Milk", "Cheese", "Yogurt", "Butter"]
+                },
+                {
+                    "title": "Beverages",
+                    "color": "blue",
+                    "words": ["Coffee", "Tea", "Soda", "Juice"]
+                }
+            ]
+        }
+    ]
+}
